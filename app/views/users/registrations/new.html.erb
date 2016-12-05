@@ -1,6 +1,5 @@
 <h2>Sign up</h2>
 
-<div class="container">
   <div class="row">
     <div class="col-md-4">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -30,11 +29,10 @@
         </div>
 
         <div class="actions">
-          <%= f.submit "Sign up", class: 'btn btn-primary sign-up' %>
+          <%= f.submit "Sign up", class: 'btn btn-primary confirm-button' %>
         </div>
       <% end %>
 
       <!-- <%= render "users/shared/links" %> -->
     </div>
   </div>
-</div>
