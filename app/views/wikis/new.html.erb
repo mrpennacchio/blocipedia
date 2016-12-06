@@ -1,0 +1,16 @@
+ <h1>Create a new Wiki</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <%=form_for @wikis do |f| %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control', autofocus: true, placeholder: 'Enter Wiki Title' %>
+
+      <%= f.label :body %>
+      <%= f.text_area :body, rows: 4, class:'form-control', placeholder: 'Enter Wiki Body' %>
+
+      <%= f.submit "Save", class:'btn btn-primary submit-button' %>
+
+      <% end %>
+    </div>
+  </div>
