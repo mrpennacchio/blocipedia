@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable #, :validatable
 
-  has_many :wikis
+  has_many :wikis, dependent: :destroy
 
   before_save { self.email = email.downcase if email.present? }
 

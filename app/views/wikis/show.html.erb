@@ -1,4 +1,8 @@
-<h1><%= @wikis.title %></h1>
+<p class="index-link"><%= link_to "Back to Wiki Index", wikis_path %></p>
+
+<%= link_to "Edit Wiki", edit_wiki_path(@wikis), class:"btn btn-success"%>
+<%= link_to "Delete Wiki", @wikis, method: :delete, class:"btn btn-danger"%>
+<h1 class="page-header"><%= @wikis.title %><small> Created by <%=@wikis.user.name%></small></h1>
 
 <div class="row">
   <div class="col-md-8">
