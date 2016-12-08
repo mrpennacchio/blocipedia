@@ -5,6 +5,28 @@ RSpec.describe WikisController, type: :controller do
 let(:user) { User.create!(name: "user name", email: "username@example.com", password: "helloworld") }
 let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false, user: user) }
 
+  # guest user and what they can do
+  context "guest user" do
+
+    describe "GET #index" do
+      it "returns http success" do
+        get :index
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    describe "GET #show" do
+      it "returns http success" do
+        get :show
+        expect(response).to have_http_status(:success)
+        #expect(response).to render_template :show ?????
+
+      end
+    end
+  end
+
+
+
 
   context "logged in user doing wiki CRUD" do
 
