@@ -2,8 +2,14 @@ require 'rails_helper'
 include RandomData
 
 RSpec.describe WikisController, type: :controller do
-let(:user) { User.create!(name: "user name", email: "username@example.com", password: "helloworld") }
-let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false, user: user) }
+  let(:user) { User.create!(name: "user name", email: "username@example.com", password: "helloworld") }
+  let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false, user: user) }
+
+  # :each runs before "it" tests
+  before :each do
+    sign_in user
+  end
+
 
   # guest user and what they can do
   context "guest user" do
@@ -17,15 +23,13 @@ let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData
 
     describe "GET #show" do
       it "returns http success" do
-        get :show
+        get :show, id: my_wiki.id
         expect(response).to have_http_status(:success)
         #expect(response).to render_template :show ?????
 
       end
     end
   end
-
-
 
 
   context "logged in user doing wiki CRUD" do
@@ -59,17 +63,17 @@ let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData
     # POST create. Make sure a new instance of wiki is created with a title and body
     describe "POST create" do
       it "increases the number of Wikis by 1" do
-        expect{post :create, wikis: {title: RandomData.random_sentence, body: RandomData.random_paragraph}}.to change(Wiki,:count).by(1)
+        expect{post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}}.to change(Wiki,:count).by(1)
       end
 
       it "assigns new wiki to @wikis" do
-        post :create, wikis: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+        post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
         expect(assigns(:wikis)).to eq Wiki.last
       end
 
       # redirect to new wiki when new wiki is created
       it "redirects to the new Wiki" do
-        post :create, wikis: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+        post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
         expect(response).to redirect_to Wiki.last
       end
     end
@@ -77,7 +81,7 @@ let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData
 
     describe "GET #show" do
       it "returns http success" do
-        get :show
+        get :show, id: my_wiki.id
         expect(response).to have_http_status(:success)
       end
 
@@ -118,7 +122,7 @@ let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData
         new_title = RandomData.random_sentence
         new_body = RandomData.random_paragraph
 
-        put :update, id: my_wiki.id, wikis:{title: new_title, body: new_body}
+        put :update, id: my_wiki.id, wiki:{title: new_title, body: new_body}
 
         updated_wiki = assigns(:wikis)
         expect(updated_wiki.id).to eq my_wiki.id
@@ -130,7 +134,7 @@ let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData
         new_title = RandomData.random_sentence
         new_body = RandomData.random_paragraph
 
-        put :update, id: my_wiki.id, wikis: {title: new_title, body: new_body}
+        put :update, id: my_wiki.id, wiki: {title: new_title, body: new_body}
         expect(response).to redirect_to my_wiki
       end
     end
