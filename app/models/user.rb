@@ -7,12 +7,12 @@ class User < ApplicationRecord
   has_many :wikis, dependent: :destroy
 
   # automatically regieser user as a standard user
-  # after_initialize :init_role
+  after_initialize :init_role
 
 
   # email is downcase and will send after creation of new user
   before_save { self.email = email.downcase if email.present? }
-  after_create :send_confirmation_email, :init_role
+  after_create :send_confirmation_email
 
   # user validations
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
