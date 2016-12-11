@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :wikis, dependent: :destroy
 
   # automatically regieser user as a standard user
-  after_initialize :init_role
+  # after_initialize :init_role
 
 
   # email is downcase and will send after creation of new user
