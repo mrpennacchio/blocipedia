@@ -28,6 +28,7 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
  gem 'figaro'
  gem 'pry'
  gem 'devise'
+ gem 'pundit'
  # gem 'bcrypt'
 
  group :development, :test do

@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
 
-  before_action :authorize_user, except: [:index, :show]
+  # before_action :authorize_user, except: [:index, :show]
   def index
     #anyone
     @wikis = Wiki.all
@@ -9,17 +9,21 @@ class WikisController < ApplicationController
   def show
     #anyone
     @wikis = Wiki.find(params[:id])
+
   end
 
   def new
     #if current_user
     @wikis = Wiki.new
+    authorize @wikis
   end
 
   def create
     # if current User
     @wikis = Wiki.new(wiki_params)
     @wikis.user = current_user
+
+    authorize @wikis
 
     if @wikis.save
       flash[:notice] = "Wiki was saved."
@@ -33,6 +37,7 @@ class WikisController < ApplicationController
   def edit
     # if current user
     @wikis = Wiki.find(params[:id])
+    authorize @wikis
   end
 
   def update
@@ -41,6 +46,8 @@ class WikisController < ApplicationController
     @wikis = Wiki.find(params[:id])
     @wikis.title = params[:wiki][:title]
     @wikis.body = params[:wiki][:body]
+
+    authorize @wikis
 
     if @wikis.save
       flash[:notice] = "Wiki was saved."
@@ -54,6 +61,9 @@ class WikisController < ApplicationController
 
   def destroy
     @wikis = Wiki.find(params[:id])
+
+    authorize @wikis
+
 
     if @wikis.destroy
       flash[:notice] = "\"#{@wikis.title}\" was deleted successfully."

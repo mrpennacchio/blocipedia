@@ -1,5 +1,4 @@
-class UsersController < ApplicationController
-
+class UsersController < Devise::RegistrationsController
 
 
 end
