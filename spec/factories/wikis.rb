@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :wiki do
-    title RandomData.random_sentence
-    body RandomData.random_paragraph
+    title Faker::Hipster.sentence
+    body Faker::Hipster.paragraphs(1) 
     private false
     user
   end

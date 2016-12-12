@@ -3,7 +3,7 @@ include RandomData
 
 RSpec.describe WikisController, type: :controller do
   let(:user) { User.create!(name: "user name", email: "username@example.com", password: "helloworld") }
-  let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false, user: user) }
+  let(:my_wiki) { Wiki.create!(title: Faker::Hipster.sentence , body: Faker::Hipster.paragraph , private: false, user: user) }
 
   # :each runs before "it" tests
   before :each do

@@ -4,7 +4,7 @@ include RandomData
 RSpec.describe Wiki, type: :model do
   # create user and wiki for test
   let(:user) { User.create!(name: "user name", email: "username@example.com", password: "helloworld") }
-  let(:wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
+  let(:wiki) { Wiki.create!(title: Faker::Hipster.sentence , body: Faker::Hipster.paragraph , user: user) }
 
   # wiki should belong to a user
   it { is_expected.to belong_to(:user) }
