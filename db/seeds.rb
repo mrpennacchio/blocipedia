@@ -15,6 +15,14 @@ include Faker
   )
 end
 
+user_1 = User.create!(
+  name: "Anthony",
+  email: "newemail@blocipedia.com",
+  password: "password"
+)
+user_1.skip_confirmation!
+user_1.save!
+
 users = User.all
 
 20.times do

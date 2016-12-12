@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable #, :validatable
+         :recoverable, :rememberable, :trackable, :confirmable
 
   has_many :wikis, dependent: :destroy
 
@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   # email is downcase and will send after creation of new user
   before_save { self.email = email.downcase if email.present? }
-  after_create :send_confirmation_email
+  # after_create :send_confirmation_email
 
   # user validations
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
@@ -31,8 +31,8 @@ class User < ApplicationRecord
 
   private
 
-  def send_confirmation_email
-      UserMailer.new_user(self).deliver_now
-  end
+  # def send_confirmation_email
+  #     UserMailer.new_user(self).deliver_now
+  # end
 
 end
