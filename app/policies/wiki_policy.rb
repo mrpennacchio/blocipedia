@@ -26,6 +26,6 @@ end
   end
 
   def destroy?
-     user.role == "admin" || record.user == user
+    record.user == user || record.user.role == "admin"
   end
 end
