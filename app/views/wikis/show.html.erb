@@ -2,7 +2,7 @@
 
 <%= link_to "Edit Wiki", edit_wiki_path(@wikis), class:"btn btn-success"%>
 <%= link_to "Delete Wiki", @wikis, method: :delete, class:"btn btn-danger"%>
-<h1 class="page-header"><%= @wikis.title %><small> Created by <%=@wikis.user.name%></small></h1>
+<h2 class="page-header"><%= @wikis.title %><small> Created by <%=@wikis.user.name%></small></h2>
 
 <div class="row">
   <div class="col-md-8">

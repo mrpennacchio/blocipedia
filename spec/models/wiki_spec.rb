@@ -1,5 +1,4 @@
 require 'rails_helper'
-include RandomData
 
 RSpec.describe Wiki, type: :model do
   # create user and wiki for test

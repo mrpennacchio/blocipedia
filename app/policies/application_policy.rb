@@ -1,7 +1,6 @@
 class ApplicationPolicy
   attr_reader :user, :record
 
-  # record is the instance of the second parameter. In the wiki-policy controller, record would be an instance of wiki
   def initialize(user, record)
     @user = user
     @record = record
@@ -12,11 +11,11 @@ class ApplicationPolicy
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    false
   end
 
   def create?
-    user.present?
+    false
   end
 
   def new?
@@ -33,10 +32,6 @@ class ApplicationPolicy
 
   def destroy?
     false
-  end
-
-  def scope
-    Pundit.policy_scope!(user, record.class)
   end
 
   class Scope

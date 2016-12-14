@@ -27,8 +27,12 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
  gem 'bootstrap-sass'
  gem 'figaro'
  gem 'pry'
+ # user authentication
  gem 'devise'
+ # user authorization
  gem 'pundit'
+ # charge gem
+ gem 'stripe'
  # gem 'bcrypt'
 
  group :development, :test do
