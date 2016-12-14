@@ -1,0 +1,16 @@
+<div class="row">
+  <div class-"col-span-4">
+<h3 class="page-header"><%=current_user.name%> </h3>
+
+    <h4>Email: </h4><%= current_user.email %>
+    <h4>Account Status: </h4><%= current_user.role %>
+  </br>
+</br>
+    <% if current_user.role == 'premium'%>
+      <h6>Downgrade account <%= link_to "here", users_down_grade_path %><h6>
+
+    <% elsif current_user.role == 'standard'%>
+    <h4> Upgrade account <%= link_to "here", new_charge_path %> </h4>
+    <% end %>
+  </div>
+</div>
