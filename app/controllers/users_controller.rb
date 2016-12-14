@@ -11,9 +11,6 @@ class UsersController < Devise::RegistrationsController
     flash[:alert] = "You have downgraded your account, #{current_user.name}"
     redirect_to root_path
 
-    if current_user.role == 'standard'
-      flash[:alert] = "You are already a standard member"
-    end
   end
 
 end
