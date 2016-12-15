@@ -12,7 +12,6 @@ Rails.application.routes.draw do
 
   resources :charges, only: [:new, :create]
   post "charges/new"
-  get "users/show"
   get "welcome/index"
   root 'welcome#index'
 
