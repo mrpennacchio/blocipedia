@@ -9,6 +9,11 @@ Rails.application.routes.draw do
     get "users/show"
     get "users/down_grade"
   end
+  # resources :users, only: [:show] do
+  #   member do
+  #     get :down_grade
+  #   end
+  # end
 
   resources :charges, only: [:new, :create]
   post "charges/new"
