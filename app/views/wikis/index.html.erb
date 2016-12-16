@@ -12,7 +12,7 @@
       <ul class="list-group">
         <div class="media-heading">
           <h4 class="media-body">
-              <li class="list-group-item"><%= link_to w.title, wiki_path(w) %></li>
+              <li class="list-group-item"><%= link_to w.title, wiki_path(w) %><small>  |  <%= w.user.name %>, <%= time_ago_in_words(w.created_at) %>  ago</small></li>
             <% end %>
           </h4>
         </div>
