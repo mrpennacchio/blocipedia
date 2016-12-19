@@ -27,6 +27,7 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
  gem 'bootstrap-sass'
  gem 'figaro'
  gem 'pry'
+ gem 'redcarpet'
  # user authentication
  gem 'devise'
  # user authorization
