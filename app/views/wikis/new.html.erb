@@ -14,7 +14,7 @@
           </ul>
         </div>
         <% end %>
-        
+
         <%= f.label :title %>
         <%= f.text_field :title, class: 'form-control', autofocus: true, placeholder: 'Enter Wiki Title' %>
 
@@ -22,7 +22,13 @@
         <%= f.text_area :body, rows: 8, class:'form-control', placeholder: 'Enter Wiki Body' %>
 
         <%= f.submit "Save", class:'btn btn-primary submit-button' %>
-
+        <% if current_user.admin? || current_user.premium? %>
+          <div class="form-group">
+              <%= f.label :private, class: 'checkbox' do %>
+              <%= f.check_box :private%> Private wiki
+            <% end %>
+          </div>
+        <% end %>
         <% end %>
     </div>
   </div>

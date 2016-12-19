@@ -4,6 +4,9 @@ class WikisController < ApplicationController
   def index
     #anyone
     @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
+    # @wikis = @user.wikis.visible_to(current_user)
+
   end
 
   def show
@@ -34,18 +37,20 @@ class WikisController < ApplicationController
     end
   end
 
+
+
   def edit
     # if current user
     @wikis = Wiki.find(params[:id])
     authorize @wikis
+
   end
 
   def update
-    # if current_user
-
     @wikis = Wiki.find(params[:id])
     @wikis.title = params[:wiki][:title]
     @wikis.body = params[:wiki][:body]
+    @wikis.private = params[:wiki][:private]
 
     authorize @wikis
 
@@ -63,7 +68,6 @@ class WikisController < ApplicationController
     @wikis = Wiki.find(params[:id])
 
     authorize @wikis
-
 
     if @wikis.destroy
       flash[:notice] = "\"#{@wikis.title}\" was deleted successfully."
@@ -84,10 +88,10 @@ class WikisController < ApplicationController
       flash[:alert]= "You must be logged in to do that. Sign up or log in now!"
       redirect_to root_path
     end
-
   end
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body )
+    params.require(:wiki).permit(:title, :body, :private )
   end
+
 end

@@ -1,14 +1,16 @@
 class UsersController < Devise::RegistrationsController
 
+  # attr_accessor :wikis
 
   def show
     authorize :user, :show?
   end
 
   def down_grade
-
-    current_user.update_attribute(:role, 'standard')
-    flash[:alert] = "You have downgraded your account, #{current_user.name}"
+    @user = current_user
+    @user.update_attribute :role, 'standard'
+    @user = User.downgrade(@user)
+    flash[:alert] = "You have downgraded your account, #{current_user.name}. Your private wikis are now public"
     redirect_to root_path
 
   end

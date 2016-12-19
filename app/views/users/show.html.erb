@@ -7,10 +7,12 @@
   </br>
 </br>
     <% if current_user.role == 'premium'%>
-      <h6>Downgrade account <%= link_to "here", users_down_grade_path %><h6>
+      <h5>Downgrade account <%= link_to "here", users_down_grade_path %><h5>
+        <h6>(Doing so will make all of your private wikis public)</h6>
 
     <% elsif current_user.role == 'standard'%>
     <h4> Upgrade account <%= link_to "here", new_charge_path %> </h4>
+    
     <% end %>
   </div>
 </div>

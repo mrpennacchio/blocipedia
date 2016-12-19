@@ -9,7 +9,6 @@ class User < ApplicationRecord
   # automatically regieser user as a standard user
   after_initialize :init_role
 
-
   # email is downcase and will send after creation of new user
   before_save { self.email = email.downcase if email.present? }
   # after_create :send_confirmation_email
@@ -29,10 +28,10 @@ class User < ApplicationRecord
     self.role ||= :standard
   end
 
-  private
 
-  # def send_confirmation_email
-  #     UserMailer.new_user(self).deliver_now
-  # end
+  def self.downgrade(user)
+    self.roles ==  'standard'
+    Wiki.make_public(user)
+  end
 
 end
