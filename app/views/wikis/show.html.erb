@@ -2,7 +2,7 @@
 
 <%= link_to "Edit Wiki", edit_wiki_path(@wikis), class:"btn btn-success"%>
 <%= link_to "Delete Wiki", @wikis, method: :delete, class:"btn btn-danger"%>
-<h2 class="page-header"><%= @wikis.title %><small> Created by <%=@wikis.user.name%></small></h2>
+<h2 class="page-header"><%=markdown(@wikis.title) %><small> Created by <%=@wikis.user.name%></small></h2>
 
 <% if @wikis.private? == false %>
 <h6 class="wiki_private"> Public Wiki</h6>
@@ -15,6 +15,6 @@
 </br>
 <div class="row">
   <div class="col-md-8">
-    <p><%= @wikis.body %></p>
+    <p><%= markdown(@wikis.body) %></p>
   </div>
 </div>
