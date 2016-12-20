@@ -30,6 +30,7 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
  gem 'redcarpet'
  # user authentication
  gem 'devise'
+ gem 'redcarpet'
  # user authorization
  gem 'pundit'
  # charge gem

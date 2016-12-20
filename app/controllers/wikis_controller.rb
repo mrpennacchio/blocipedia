@@ -1,5 +1,5 @@
 class WikisController < ApplicationController
-
+include ApplicationHelper
   # before_action :authorize_user, except: [:index, :show]
   def index
     #anyone
