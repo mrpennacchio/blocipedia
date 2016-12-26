@@ -3,7 +3,9 @@ include ApplicationHelper
   # before_action :authorize_user, except: [:index, :show]
   def index
     #anyone
-    @wikis = policy_scope(Wiki)
+    # @wikis = policy_scope(Wiki)
+    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
 
   end
 
