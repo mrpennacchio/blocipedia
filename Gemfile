@@ -26,8 +26,9 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
  gem 'turbolinks'
  gem 'bootstrap-sass'
  gem 'figaro'
- gem 'pry'
- gem 'redcarpet'
+ # gem 'pry'
+ # gem 'pry-rails'
+
  # user authentication
  gem 'devise'
  gem 'redcarpet'
