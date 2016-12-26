@@ -28,7 +28,7 @@
         <div class="form-group">
           <%= f.submit "Save", class:'btn btn-primary submit-button' %>
 
-          <% if current_user.admin? || current_user.premium? %>
+          <% if current_user.admin? || current_user.premium?  %>
                 <%= f.label :private, class: 'checkbox' do %>
                 <%= f.check_box :private%> Private wiki
               <% end %>

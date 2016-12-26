@@ -4,6 +4,12 @@
 <%= link_to "Delete Wiki", @wikis, method: :delete, class:"btn btn-danger"%>
 <h2 class="page-header"><%=markdown(@wikis.title) %><small> Created by <%=@wikis.user.name%></small></h2>
 
+ <% @wikis.collaborators.each do |c| %>
+   <ul>
+     <li><%=c.name%> </li>
+   </ul>
+<%end%>
+
 <% if @wikis.private? == false %>
 <h6 class="wiki_private"> Public Wiki</h6>
 <% else %>
