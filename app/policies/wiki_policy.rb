@@ -1,5 +1,8 @@
 class WikiPolicy < ApplicationPolicy
 
+  def Index
+
+  end
 
   def show?
     if record.private? == true
@@ -40,8 +43,13 @@ class WikiPolicy < ApplicationPolicy
 
     def resolve
       wikis = []
-      if user.role == 'admin'
-        wikis = scope.all # if the user is an admin, show them all the wikis
+      if !user.present?
+        all_wikis = scope.all
+        all_wikis.each do |wiki|
+          if !wiki.private?
+            wikis << wiki
+          end
+        end
       elsif user.role == 'premium'
         all_wikis = scope.all
         all_wikis.each do |wiki|
