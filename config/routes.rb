@@ -2,10 +2,13 @@ Rails.application.routes.draw do
 
 
   devise_for :users
-  resources :wikis
 
-
-
+  resources :wikis do
+    member do
+        put :add_collaborator
+        put :remove_collaborator
+      end
+   end
   # allows a users/show view for a prof. page
   devise_scope :user do
     get "users/show"
@@ -18,7 +21,6 @@ Rails.application.routes.draw do
   # end
 
   resources :charges, only: [:new, :create]
-  post "charges/new"
   get "welcome/index"
   root 'welcome#index'
 

@@ -3,77 +3,108 @@ include ApplicationHelper
   # before_action :authorize_user, except: [:index, :show]
   def index
     #anyone
-    @wikis = policy_scope(Wiki)
+    @wiki = policy_scope(Wiki)
   end
 
   def show
     #anyone
-    @wikis = Wiki.find(params[:id])
-
+    @wiki = Wiki.find(params[:id])
   end
 
   def new
     #if current_user
-    @wikis = Wiki.new
-    authorize @wikis
+    @wiki = Wiki.new
+    authorize @wiki
   end
 
   def create
     # if current User
-    @wikis = Wiki.new(wiki_params)
-    @wikis.user = current_user
+    @wiki = Wiki.new(wiki_params)
+    @wiki.user = current_user
 
-    authorize @wikis
+    authorize @wiki
 
-    if @wikis.save
+    if @wiki.save
       flash[:notice] = "Wiki was saved."
-      redirect_to @wikis
+      redirect_to @wiki
     else
       flash[:error] = "Error. Could not save the wiki."
       render :new
     end
   end
 
-
-
   def edit
     # if current user
-    @wikis = Wiki.find(params[:id])
-    authorize @wikis
+    @wiki = Wiki.find(params[:id])
+    authorize @wiki
 
   end
 
   def update
-    @wikis = Wiki.find(params[:id])
-    @wikis.title = params[:wiki][:title]
-    @wikis.body = params[:wiki][:body]
-    @wikis.private = params[:wiki][:private]
+    @wiki = Wiki.find(params[:id])
+    @wiki.title = params[:title]
+    @wiki.body = params[:body]
+    # @wiki.private = params[:wiki][:private]
 
-    authorize @wikis
+    authorize @wiki
 
-    if @wikis.save
+    if @wiki.save
       flash[:notice] = "Wiki was saved."
-      redirect_to @wikis
+      redirect_to @wiki
     else
       flash.now[:alert] = "There was an error updating this wiki. Try again."
       render :edit
     end
   end
 
-
   def destroy
-    @wikis = Wiki.find(params[:id])
+    @wiki = Wiki.find(params[:id])
 
-    authorize @wikis
+    authorize @wiki
 
-    if @wikis.destroy
-      flash[:notice] = "\"#{@wikis.title}\" was deleted successfully."
+    if @wiki.destroy
+      flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to wikis_path
     else
       flash.now[:alert] = "There was an error deleting your wiki. Try again."
       render :show
     end
   end
+
+  def add_collaborator
+    authorize :collaboration, :create?
+
+    user_email = params[:email]
+    user_id = User.where(email: user_email).pluck(:id)
+    user = User.where(id: user_id)
+    @wiki = Wiki.find(params[:id])
+
+    if collaborations = @wiki.collaborators << user && user.exists?
+      flash[:notice] = "Collaborator Added"
+    elsif @wiki.collaborators.exists?
+      flash[:alert] = "Collaborator already exists."
+    else
+      flash[:alert] = "Collaborator unable to be added. Try again"
+    end
+    redirect_to @wiki
+  end
+
+  def remove_collaborator
+    wiki = Wiki.find(params[:id])
+    authorize :collaboration, :destroy?
+
+    # user_id
+    collaborator_id = params[:collaborator_id]
+    # remove user from wiki.collaborators array
+
+      if collaborations.destroy
+        flash[:notice] = "Collaborator Removed"
+      else
+        flash[:alert] = "Collaborator not removed. Try again"
+      end
+        redirect_to @wiki
+    end
+
 
 
   private
