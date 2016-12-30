@@ -21,9 +21,13 @@ class WikiPolicy < ApplicationPolicy
     user.present?
   end
 
+  # def edit?
+  #   update?
+  # end
+
   def update?
     if record.private? == true
-      user.premium? || user.admin?
+      user.premium? || user.admin? || user.collaborating_wikis(record)
     elsif record.private? == false
       user.present?
     end
@@ -31,6 +35,14 @@ class WikiPolicy < ApplicationPolicy
 
   def destroy?
     record.user == user || record.user.role == "admin"
+  end
+
+  def add_collaborator?
+    user.premium?
+  end
+
+  def remove_collaborator?
+    user.premium?
   end
 
   class Scope

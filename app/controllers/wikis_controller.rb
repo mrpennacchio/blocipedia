@@ -42,8 +42,8 @@ include ApplicationHelper
 
   def update
     @wiki = Wiki.find(params[:id])
-    @wiki.title = params[:title]
-    @wiki.body = params[:body]
+    @wiki.title = params[:wiki][:title]
+    @wiki.body = params[:wiki][:body]
     # @wiki.private = params[:wiki][:private]
 
     authorize @wiki
@@ -72,37 +72,36 @@ include ApplicationHelper
   end
 
   def add_collaborator
-    authorize :collaboration, :create?
+    authorize :wiki, :add_collaborator?
 
     user_email = params[:email]
     user_id = User.where(email: user_email).pluck(:id)
     user = User.where(id: user_id)
     @wiki = Wiki.find(params[:id])
 
-    if collaborations = @wiki.collaborators << user && user.exists?
-      flash[:notice] = "Collaborator Added"
-    elsif @wiki.collaborators.exists?
+    if !user.exists? # if the user is a valid user
+      flash[:alert] = "Collaborator unable to be added. Try again"
+    # elsif @wiki.collaborators(user_id: user).exists? # if collaborator already exists
       flash[:alert] = "Collaborator already exists."
     else
-      flash[:alert] = "Collaborator unable to be added. Try again"
+      @wiki.collaborators << user # else, add the user
+      flash[:notice] = "Collaborator Added"
     end
     redirect_to @wiki
   end
 
   def remove_collaborator
-    wiki = Wiki.find(params[:id])
-    authorize :collaboration, :destroy?
+    authorize :wiki, :remove_collaborator?
 
+    #find wiki
+    @wiki = Wiki.find(params[:id])
     # user_id
     collaborator_id = params[:collaborator_id]
     # remove user from wiki.collaborators array
+    @wiki.collaborators.delete(collaborator_id)
+    flash[:notice] = "Collaborator Removed"
 
-      if collaborations.destroy
-        flash[:notice] = "Collaborator Removed"
-      else
-        flash[:alert] = "Collaborator not removed. Try again"
-      end
-        redirect_to @wiki
+    redirect_to @wiki
     end
 
 
