@@ -6,14 +6,11 @@ include ApplicationHelper
 
   def index
     #anyone
-<<<<<<< HEAD
     # @wikis = policy_scope(Wiki)
     @wikis = Wiki.all
     @wikis = Wiki.visible_to(current_user)
 
-=======
     @wiki = policy_scope(Wiki)
->>>>>>> checkpoint-10-collaborators
   end
 
   def show
