@@ -54,7 +54,7 @@ RSpec.describe WikisController, type: :controller do
       # new wiki is created`
       it "instantiated @wikis" do
         get :new
-        expect(assigns(:wikis)).not_to be_nil
+        expect(assigns(:wiki)).not_to be_nil
       end
     end
 
@@ -66,7 +66,7 @@ RSpec.describe WikisController, type: :controller do
 
       it "assigns new wiki to @wikis" do
         post :create, wiki: {title: Faker::Hipster.sentence, body: Faker::Hipster.paragraph}
-        expect(assigns(:wikis)).to eq Wiki.last
+        expect(assigns(:wiki)).to eq Wiki.last
       end
 
       # redirect to new wiki when new wiki is created
@@ -90,7 +90,7 @@ RSpec.describe WikisController, type: :controller do
 
       it "assigns my_wiki to @wiki" do
         get :show, {id: my_wiki.id}
-        expect(assigns(:wikis)).to eq(my_wiki)
+        expect(assigns(:wiki)).to eq(my_wiki)
       end
     end
 
@@ -107,7 +107,7 @@ RSpec.describe WikisController, type: :controller do
       # assigns correct wiki to be updated to @wikis
       it "assigns wiki to be updated to @wikis" do
         get :edit, {id: my_wiki.id}
-        wiki_instance = assigns(:wikis)
+        wiki_instance = assigns(:wiki)
 
         expect(wiki_instance.id).to eq my_wiki.id
         expect(wiki_instance.title).to eq my_wiki.title
@@ -122,7 +122,7 @@ RSpec.describe WikisController, type: :controller do
 
         put :update, id: my_wiki.id, wiki:{title: new_title, body: new_body}
 
-        updated_wiki = assigns(:wikis)
+        updated_wiki = assigns(:wiki)
         expect(updated_wiki.id).to eq my_wiki.id
         expect(updated_wiki.title).to eq new_title
         expect(updated_wiki.body).to eq new_body

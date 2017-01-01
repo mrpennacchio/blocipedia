@@ -1,8 +1,6 @@
 class Wiki < ApplicationRecord
   belongs_to :user
 
-  has_many :users, through: :collaborations
-
   has_many :collaborations
   has_many :collaborators, through: :collaborations, source: :user
 
@@ -18,10 +16,9 @@ class Wiki < ApplicationRecord
 
   # make private wikis public
   def make_public
-      self.private = false
-      save
+    self.private = false
+    save
+    self.collaborators.clear # remove collaborators when user is downgraded, and wiki is made public
   end
-
-
 
 end

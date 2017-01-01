@@ -3,12 +3,12 @@
 
 <div class="row">
   <div class="col-md-6">
-    <%=form_for @wikis do |f| %>
-      <% if @wikis.errors.any? %>
+    <%=form_for @wiki do |f| %>
+      <% if @wiki.errors.any? %>
         <div class="alert alert-danger">
-          <h4><%= pluralize(@wikis.errors.count, "error")%>.</h4>
+          <h4><%= pluralize(@wiki.errors.count, "error")%>.</h4>
           <ul>
-            <% @wikis.errors.full_messages.each do |msg| %>
+            <% @wiki.errors.full_messages.each do |msg| %>
               <li><%= msg %> </li>
             <% end %>
           </ul>
@@ -28,7 +28,7 @@
         <div class="form-group">
           <%= f.submit "Save", class:'btn btn-primary submit-button' %>
 
-          <% if current_user.admin? || current_user.premium? %>
+          <% if current_user.admin? || current_user.premium?  %>
                 <%= f.label :private, class: 'checkbox' do %>
                 <%= f.check_box :private%> Private wiki
               <% end %>

@@ -2,9 +2,14 @@
 
 <div class="row">
   <div class="col-md-6">
-  
-        <%= render partial: 'wikis/form' %>
-
-      </div>
-    </div>
+    <%= render partial: 'wikis/form' %>
   </div>
+
+  <div class="col-md-6 pull-right ">
+    <% if current_user.premium? && @wiki.user == current_user %>
+      <%= render partial: 'wikis/collaboration'%>
+      <%= render partial: 'wikis/remove_collaborator'%>
+
+    <% end%>
+  </div>
+</div>
