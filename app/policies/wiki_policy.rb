@@ -82,5 +82,4 @@ class WikiPolicy < ApplicationPolicy
       wikis # return the wikis array we've built up
     end
   end
->>>>>>> checkpoint-10-collaborators
 end
