@@ -1,6 +1,9 @@
 class WikisController < ApplicationController
 include ApplicationHelper
   # before_action :authorize_user, except: [:index, :show]
+
+  after_action :clear_collaborators, only: :update # removes collaborators if wiki is made public
+
   def index
     #anyone
     @wiki = policy_scope(Wiki)
@@ -44,7 +47,7 @@ include ApplicationHelper
     @wiki = Wiki.find(params[:id])
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
-    # @wiki.private = params[:wiki][:private]
+    @wiki.private = params[:wiki][:private]
 
     authorize @wiki
 
@@ -81,10 +84,10 @@ include ApplicationHelper
 
     if !user.exists? # if the user is a valid user
       flash[:alert] = "Collaborator unable to be added. Try again"
-    # elsif @wiki.collaborators(user_id: user).exists? # if collaborator already exists
+    elsif @wiki.collaborators.where(id: user).exists?# if collaborator already exists
       flash[:alert] = "Collaborator already exists."
     else
-      @wiki.collaborators << user # else, add the user
+      @wiki.collaborators << user #  add the user
       flash[:notice] = "Collaborator Added"
     end
     redirect_to @wiki
@@ -108,12 +111,18 @@ include ApplicationHelper
 
   private
 
-
   def authorize_user
     # @wikis = Wiki.find(params[:id])
     unless current_user
       flash[:alert]= "You must be logged in to do that. Sign up or log in now!"
       redirect_to root_path
+    end
+  end
+
+  def clear_collaborators # removes collaborators if wiki is made public
+    @wiki = Wiki.find(params[:id])
+    if @wiki.private == false
+      @wiki.collaborators.clear
     end
   end
 
