@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is a wiki replica site and was made with Bloc.io
 
-Things you may want to cover:
+It allows users to sign up using the [Devise](https://github.com/plataformatec/deviDevise) gem
 
-* Ruby version
+Authorization was implemented using the [Pundit}(https://github.com/elabs/pundit) gem
 
-* System dependencies
+A sample upgrade payment option was made available with [Stripe](https://github.com/stripe/stripe-ruby)
 
-* Configuration
 
-* Database creation
 
-* Database initialization
 
-* How to run the test suite
+This site highlights my understanding of CRUD, relationships through a join table, and the implementation of gems into a project. 
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Visit the site here: https://boiling-retreat-79257.herokuapp.com/
