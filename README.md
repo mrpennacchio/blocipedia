@@ -14,3 +14,7 @@ A sample upgrade payment option was made available with [Stripe](https://github.
 This site highlights my understanding of CRUD, relationships through a join table, and the implementation of gems into a project. 
 
 Visit the site here: https://boiling-retreat-79257.herokuapp.com/
+```
+email: newemail@blocipedia.com
+pass: password
+```
